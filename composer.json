@@ -1,0 +1,41 @@
+{
+  "name": "oit/codeup-yihai",
+  "description": "OrangeIT framework, CodeUP using Yii Framework",
+  "keywords": [
+    "codeup",
+    "yihai",
+    "orangeit",
+    "oit",
+    "yii2",
+    "framework"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "upik",
+      "email": "upxsal@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "2.0.15.1"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "codeup\\": "src"
+    }
+  },
+  "repositories": [
+    {
+      "packagist.org": false
+    },
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "minimum-stability": "dev"
+}
