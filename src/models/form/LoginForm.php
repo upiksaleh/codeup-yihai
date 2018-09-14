@@ -8,7 +8,7 @@
 
 namespace codeup\models\form;
 
-use Yii;
+use Cii;
 use codeup\base\Model;
 use codeup\models\UserIdent;
 
@@ -16,6 +16,7 @@ class LoginForm extends Model
 {
     public $username;
     public $password;
+    public $group;
     public $rememberMe = true;
 
     private $_user = false;
@@ -30,6 +31,7 @@ class LoginForm extends Model
             [['username', 'password'], 'required'],
             ['rememberMe', 'boolean'],
             ['password', 'validatePassword'],
+            ['group', 'default', 'value' => 'system']
         ];
     }
 
@@ -58,8 +60,8 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            if(Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0)){
-                Yii::$app->user->identity->save_lastLoginAt();
+            if(Cii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0)){
+                Cii::$app->user->identity->save_lastLoginAt();
                 return true;
             }
         }
@@ -74,7 +76,9 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = \Yii::$app->user->identityClass::findByUsername($this->username);
+            echo $this->group;
+            $identity = Cii::$app->user->getIdentityGroupClass($this->group);
+            $this->_user = $identity::findByUsername($this->username);
         }
         return $this->_user;
     }

@@ -6,10 +6,12 @@
  * @author Upik Saleh <upxsal@gmail.com>
  */
 
-namespace codeup\base;
+namespace codeup\controllers;
 
+use codeup\models\UsersModel;
+use Cii;
 
-class UserController extends Controller
+class UsersController extends \codeup\base\UserController
 {
     public function behaviors()
     {
@@ -17,9 +19,14 @@ class UserController extends Controller
             'access'=>[
                 'class'=>'codeup\filters\AccessControl',
                 'rules' => [
-                    ['allow'=>true, 'roles'=>['@']]
+                    ['allow'=>true, 'groups'=>['su']]
                 ]
             ]
         ];
+    }
+
+    public function actionIndex(){
+
+        return $this->render('index');
     }
 }

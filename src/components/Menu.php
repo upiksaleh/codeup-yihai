@@ -8,16 +8,19 @@
 
 namespace codeup\components;
 
-use Yii;
+use Cii;
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
 
 class Menu extends Component
 {
-    public function getAllMenu(){
-        return Yii::$app->params['menuItems'];
+    public function getAllMenu()
+    {
+        return Cii::getParams('menuItems', []);
     }
-    public function add($menu){
-        Yii::$app->params['menuItems'] = ArrayHelper::merge($menu, Yii::$app->params['menuItems']);
+
+    public function add($menu)
+    {
+        Cii::setParams('menuItems', ArrayHelper::merge($menu, Cii::getParams('menuItems', [])));
     }
 }

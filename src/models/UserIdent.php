@@ -57,7 +57,7 @@ class UserIdent extends \codeup\base\ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne([self::columnId() => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne([static::columnId() => $id, 'status' => self::STATUS_ACTIVE]);
     }
     /**
      * {@inheritdoc}
@@ -104,7 +104,7 @@ class UserIdent extends \codeup\base\ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username){
 
-        return static::findOne([self::columnUsername() => $username, 'status'=>self::STATUS_ACTIVE]);
+        return static::findOne([static::columnUsername() => $username, 'status'=>self::STATUS_ACTIVE]);
     }
     /**
      * Finds user by password reset token
@@ -199,5 +199,11 @@ class UserIdent extends \codeup\base\ActiveRecord implements IdentityInterface
 
     public function getGroup(){
         return $this->group;
+    }
+
+    public function getData($key){
+        if(isset($this->{$key}))
+            return $this->{$key};
+        return null;
     }
 }

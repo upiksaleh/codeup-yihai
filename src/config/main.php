@@ -23,6 +23,9 @@ $config = [
         '@oit' => '@vendor/oit',
     ],
     'layoutPath' => '@codeup/views/_layouts',
+    'controllerMap' => [
+        'users'  => 'codeup\controllers\UsersController'
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-codeup',
@@ -35,7 +38,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-
+            'class' => 'codeup\web\User',
             'identityClass' => 'codeup\models\UserIdent',
 
         ],

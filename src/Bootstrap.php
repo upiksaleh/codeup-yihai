@@ -23,6 +23,8 @@ class Bootstrap implements BootstrapInterface
         if(YII_ENV_DEV){
             defined('CODEUP_DEV') or define('CODEUP_DEV', true);
         }
+        require __DIR__.'/Cii.php';
+
         Yii::$container->set('yii\web\JqueryAsset', 'codeup\assets\JqueryAsset');
         Yii::$container->set('yii\helpers\Html', 'codeup\theming\Html');
         Yii::$container->set('yii\helpers\BaseHtml', 'codeup\theming\BaseHtml');

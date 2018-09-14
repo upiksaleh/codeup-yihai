@@ -14,7 +14,7 @@
 
 namespace codeup\theming;
 
-use Yii;
+use Cii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 /**
@@ -48,20 +48,19 @@ class SideBar extends \yii\widgets\Menu
      */
     public function run()
     {
-
-        if ($this->route === null && Yii::$app->controller !== null) {
-            $this->route = Yii::$app->controller->getRoute();
+        if ($this->route === null && Cii::$app->controller !== null) {
+            $this->route = Cii::$app->controller->getRoute();
         }
         if ($this->params === null) {
-            $this->params = Yii::$app->request->getQueryParams();
+            $this->params = Cii::$app->request->getQueryParams();
         }
-        $posDefaultAction = strpos($this->route, Yii::$app->controller->defaultAction);
+        $posDefaultAction = strpos($this->route, Cii::$app->controller->defaultAction);
         if ($posDefaultAction) {
             $this->noDefaultAction = rtrim(substr($this->route, 0, $posDefaultAction), '/');
         } else {
             $this->noDefaultAction = false;
         }
-        $posDefaultRoute = strpos($this->route, Yii::$app->controller->module->defaultRoute);
+        $posDefaultRoute = strpos($this->route, Cii::$app->controller->module->defaultRoute);
         if ($posDefaultRoute) {
             $this->noDefaultRoute = rtrim(substr($this->route, 0, $posDefaultRoute), '/');
         } else {
@@ -148,7 +147,7 @@ class SideBar extends \yii\widgets\Menu
     {
         foreach ($items as $i => $item) {
             if(isset($item['group'])){
-                $item['visible']    = in_array(Yii::$app->user->identity->getGroup(), $item['group']);
+                $item['visible']    = in_array(Cii::getUserIdentity()->getGroup(), $item['group']);
             }
             if (isset($item['visible']) && !$item['visible']) {
                 unset($items[$i]);
@@ -197,8 +196,8 @@ class SideBar extends \yii\widgets\Menu
     {
         if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0])) {
             $route = $item['url'][0];
-            if (isset($route[0]) && $route[0] !== '/' && Yii::$app->controller) {
-                $route = ltrim(Yii::$app->controller->module->getUniqueId() . '/' . $route, '/');
+            if (isset($route[0]) && $route[0] !== '/' && Cii::$app->controller) {
+                $route = ltrim(Cii::$app->controller->module->getUniqueId() . '/' . $route, '/');
             }
             $route = ltrim($route, '/');
 
