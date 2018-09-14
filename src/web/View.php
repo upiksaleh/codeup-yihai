@@ -16,6 +16,11 @@ class View extends \yii\web\View
     {
         parent::afterRender($viewFile, $params, $output);
     }
+
+    /**
+     * @param string|array $str
+     * @return string
+     */
     public function ctheme($str){
         return Html::ctheme($str);
     }

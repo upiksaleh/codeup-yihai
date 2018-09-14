@@ -27,7 +27,8 @@ trait HtmlTrait
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|array $str
+     * @return string
      */
     public static function ctheme($str){
         if(is_string($str))
