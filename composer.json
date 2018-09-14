@@ -27,6 +27,5 @@
     "psr-4": {
       "codeup\\": "src"
     }
-  },
-  "minimum-stability": "dev"
+  }
 }
