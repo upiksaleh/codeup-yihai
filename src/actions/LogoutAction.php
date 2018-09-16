@@ -16,6 +16,10 @@ class LogoutAction extends \yii\base\Action
 {
     public $method_allowed = ['POST'];
 
+    /**
+     * @return bool
+     * @throws MethodNotAllowedHttpException
+     */
     protected function beforeRun()
     {
         $verb = Yii::$app->getRequest()->getMethod();

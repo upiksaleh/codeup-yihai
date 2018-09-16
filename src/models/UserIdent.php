@@ -9,6 +9,7 @@
 namespace codeup\models;
 
 use Yii;
+use yii\base\NotSupportedException;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;

@@ -83,7 +83,6 @@ class ActiveForm extends \yii\widgets\ActiveForm
      */
     public $layout = 'default';
 
-
     /**
      * {@inheritdoc}
      */
@@ -107,4 +106,5 @@ class ActiveForm extends \yii\widgets\ActiveForm
     {
         return parent::field($model, $attribute, $options);
     }
+
 }

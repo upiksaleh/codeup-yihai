@@ -9,6 +9,12 @@
 namespace codeup\web;
 
 use codeup\theming\Html;
+
+/**
+ * Class View
+ * @package codeup\web
+ * @property \codeup\base\Controller $context
+ */
 class View extends \yii\web\View
 {
     public $theme = 'codeup\base\Theme';

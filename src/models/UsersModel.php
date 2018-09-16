@@ -20,6 +20,7 @@ class UsersModel extends ActiveRecord
     {
         return [
             [['username', 'fullname', 'password_hash'], 'required'],
+
         ];
     }
     public function behaviors()
