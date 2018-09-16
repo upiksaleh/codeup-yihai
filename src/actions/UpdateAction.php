@@ -18,9 +18,10 @@ class UpdateAction extends BaseFormAction
 
     public function init()
     {
-        parent::init();
         $this->scenario = 'update';
+        $this->type = 'update';
         $this->messageSuccess = 'Berhasil Update.!';
         $this->messageError = 'Gagal Update.!';
+        parent::init();
     }
 }

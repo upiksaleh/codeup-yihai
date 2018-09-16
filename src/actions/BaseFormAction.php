@@ -10,6 +10,7 @@ namespace codeup\actions;
 
 use Cii;
 use yii\db\IntegrityException;
+use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 /**
@@ -24,6 +25,8 @@ abstract class BaseFormAction extends \codeup\base\Action
      */
     public $scenario = 'default';
 
+    /** @var string type form. default adalah create */
+    public $type = "create";
     /**
      * @var array attribute scenario yang akan dipakai. jika kosong maka attributnya diambil dari default
      */
@@ -73,6 +76,10 @@ abstract class BaseFormAction extends \codeup\base\Action
     public $enableAlertDanger = false;
 
     public $formLayout = 'horizontal';
+    /**
+     * @var array merge query find model
+     */
+    public $mergeFindParams = [];
 
     public function init()
     {
@@ -85,7 +92,18 @@ abstract class BaseFormAction extends \codeup\base\Action
             $this->model = $this->controller->model;
         }
         if ($this->model === null) {
-            $this->model = new $this->modelClass();
+            if($this->type === 'create') {
+                $this->model = new $this->modelClass();
+                $this->model->loadDefaultValues();
+            }
+            elseif($this->type === 'update') {
+                $queryParams = Cii::$app->request->getQueryParams();
+                $this->model = $this->findModel($queryParams);
+            }
+            // menambah scenario
+            $this->model->addScenario($this->scenario, $this->scenarioAttributes);
+            // set scenario
+            $this->model->scenario = $this->scenario;
         }
         if ($this->formView === null) {
             $this->formView = $this->controller->getViewPath() . '/_form.php';
@@ -100,13 +118,8 @@ abstract class BaseFormAction extends \codeup\base\Action
 
     public function run()
     {
-        // menambah scenario
-        $this->model->addScenario($this->scenario, $this->scenarioAttributes);
-        // set scenario
-        $this->model->setScenario($this->scenario);
-        // load default value dari model atau record
-        $this->model->loadDefaultValues();
         if ($this->model->load(Cii::$app->request->post()) && $this->model->validate()) {
+
             // upload handle
             $this->handleUpload();
             if ($this->model->save(false)) {
@@ -152,5 +165,16 @@ abstract class BaseFormAction extends \codeup\base\Action
                 $model->{$field} = json_encode($value);
             }
         }
+    }
+    private function findModel($params)
+    {
+        if(!empty($this->mergeFindParams))
+            $params = array_merge($params, $this->mergeFindParams);
+        $model = $this->modelClass;
+        if (($model = $model::findOne($params)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

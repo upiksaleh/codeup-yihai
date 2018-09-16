@@ -75,7 +75,7 @@ class BoxCard extends Widget
         echo Html::beginTag('div', $this->headerToolsOptions);
         if(in_array('collapse',$this->tools_order)){
             $this->headerTools['collapse'] = Html::button(
-                Html::icon('minus',['tag'=>'i', 'prefix'=>'fa fa-']),
+                Html::faicon('minus'),
                 [
                     'class'=>'btn btn-box-tool',
                     'data-widget'=>'collapse'
@@ -84,7 +84,7 @@ class BoxCard extends Widget
         }
         if(in_array('remove',$this->tools_order)){
             $this->headerTools['remove'] = Html::button(
-                Html::icon('times', ['tag'=>'i', 'prefix'=>'fa fa-']),
+                Html::faicon('times'),
                 [
                     'class'=>'btn btn-box-tool',
                     'data-widget'=>'remove'
