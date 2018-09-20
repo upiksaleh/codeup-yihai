@@ -31,7 +31,7 @@ class Bootstrap implements BootstrapInterface
 
         Yii::$classMap['yii\helpers\Html'] = '@codeup/classmap/Html.php';
 
-        //bootstrap theme
+        //- bootstrap theme
         if(!Yii::$app->view instanceof \codeup\web\View)
             throw new InvalidConfigException(Yii::t('codeup', 'Komponen view harus menggunakan class {class}',['class'=>'codeup\web\view']));
 
