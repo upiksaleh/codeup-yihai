@@ -9,29 +9,13 @@
 namespace codeup\grid;
 
 
+use yii\grid\GridViewAsset;
+use yii\helpers\Json;
+
 class GridView extends \yii\grid\GridView
 {
-    public $setColumns = [];
     public function init()
     {
         parent::init();
-    }
-    protected function guessColumns()
-    {
-        parent::guessColumns();
-        if(!empty($this->setColumns) && is_array($this->setColumns)){
-            $this->initSetColumns();
-        }
-    }
-
-    private function initSetColumns(){
-        foreach($this->columns as $i => $name){
-            if(isset($this->setColumns[$name])){
-                $setColumn = $this->setColumns[$name];
-                if(!isset($setColumn['attribute']))
-                    $setColumn['attribute'] = $name;
-                $this->columns[$i] = $setColumn;
-            }
-        }
     }
 }

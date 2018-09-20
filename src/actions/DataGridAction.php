@@ -8,6 +8,12 @@
 
 namespace codeup\actions;
 
+use Cii;
+use codeup\grid\Filtering;
+use codeup\grid\GridView;
+use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
+
 /**
  * Class DataGridAction
  * @package codeup\actions
@@ -18,9 +24,17 @@ class DataGridAction extends \codeup\base\Action
     public $baseView = '@codeup/views/_pages/base-datagrid';
     public $modelClass;
     public $model;
-    public $dataProvider;
-    public $filterModel;
-    private $_settings;
+    /** @var ActiveDataProvider */
+    public $dataProvider = [];
+    /** @var Filtering */
+    public $filtering = [];
+    /** @var GridView */
+    public $gridView = [];
+    /** @var \codeup\theming\BoxCard */
+    public $boxCard = [];
+    /** @var string */
+    public $boxButton = '{insert}';
+    private $_settings = [];
 
     public function init()
     {
@@ -32,28 +46,33 @@ class DataGridAction extends \codeup\base\Action
         if (isset($this->controller->model) && ($this->controller->model !== null) && $this->model === null) {
             $this->model = $this->controller->model;
         }
-        $this->dataProvider = new \yii\data\ActiveDataProvider([
-            'query' => $this->modelClass::find(),
-            'pagination' => [
-                'pageSize'=> 10
-            ],
-            //'sort' => [
-//        'attributes' => ['kode', 'nama', 'updatedAt', 'createdAt']
-            //  ],
-        ]);
+
+        $this->initFiltering();
+        $this->initGridView();
     }
 
     public function run(){
+
         $params = array_merge([
             'modelClass' => $this->modelClass,
             'model' => $this->model,
-            'dataProvider' => $this->dataProvider
+            'boxButton'=>$this->boxButton,
+            'boxCard' => $this->boxCard,
+            'filtering'=>$this->filtering,
+            'gridView' => $this->gridView,
         ], $this->_settings);
-
 
         return $this->controller->render($this->baseView,$params);
     }
+    private function initGridView(){
 
+    }
+    private function initFiltering(){
+        $this->filtering =  Cii::createObject(ArrayHelper::merge([
+            'class'=> 'codeup\grid\Filtering',
+            'modelClass'    => $this->modelClass,
+        ], $this->filtering));
+    }
     public function __set($name, $value)
     {
         return $this->_settings[$name] = $value;

@@ -14,6 +14,8 @@ use yii\base\BaseObject;
 use codeup\theming\ActiveForm;
 use yii\base\DynamicModel;
 use codeup\theming\Html;
+use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 
 /**
  * advanced filtering
@@ -31,6 +33,9 @@ class Filtering extends BaseObject
     public $formModel;
     /** @var \codeup\theming\ActiveForm */
     private $_form;
+    /** @var ActiveDataProvider config */
+    public $dataProvider = [];
+    /** @var DataProvider */
     private $_dataProvider;
     /** @var \yii\db\ActiveQuery */
     private $_query;
@@ -75,13 +80,12 @@ class Filtering extends BaseObject
 
     public function initDataProvider()
     {
-
-        $this->_dataProvider = new \yii\data\ActiveDataProvider([
+        $this->_dataProvider = new ActiveDataProvider(ArrayHelper::merge([
             'query' => $this->_query,
             'pagination' => [
                 'pageSize' => $this->formModel->limit
             ],
-        ]);
+        ], $this->dataProvider));
     }
 
     /**
