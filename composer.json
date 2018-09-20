@@ -27,5 +27,8 @@
     "psr-4": {
       "codeup\\": "src"
     }
+  },
+  "branch-alias": {
+    "dev-1.0.4-simrs": "1.0.4-simrs"
   }
 }
