@@ -50,6 +50,7 @@ class DataGridAction extends \codeup\base\Action
             'dataProvider' => $this->dataProvider
         ], $this->_settings);
 
+
         return $this->controller->render($this->baseView,$params);
     }
 
