@@ -8,6 +8,10 @@
 
 use yii\base\InvalidConfigException;
 
+/**
+ * Class Cii
+ * @author Upik Saleh <upxsal@gmail.com>
+ */
 class Cii extends \yii\BaseYii
 {
 
