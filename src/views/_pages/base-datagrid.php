@@ -14,4 +14,3 @@ BoxCard::begin([
 ]);
 //echo $this->render('setGridViewFile');
 BoxCard::end();
-print_r($this->getViewFile());
