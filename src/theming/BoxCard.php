@@ -41,6 +41,9 @@ class BoxCard extends Widget
 
     public $loading = false;
     public $isCollapsed = false;
+    /** @var string konten setelah body */
+    public $afterBody;
+
     // --------------------------------------------------------------------
     /**
      * Initializes the widget.
@@ -64,6 +67,8 @@ class BoxCard extends Widget
     public function run()
     {
         echo Html::endTag('div');   //body
+        if($this->afterBody)
+            echo $this->afterBody;
         if($this->loading){
             echo Html::tag('div', Html::faicon(['refresh','spin']), ['class'=>'overlay']);
         }
