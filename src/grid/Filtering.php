@@ -45,6 +45,7 @@ class Filtering extends BaseObject
     /** @var array base where, akan ditambahkan pada akhir query */
     public $baseWhere = [];
 
+    private $_hasQuery = false;
     public function init()
     {
         parent::init();
@@ -156,6 +157,7 @@ class Filtering extends BaseObject
                 if (in_array($i, ['{baseindex}'])) continue;
                 $this->_query->addOrderBy($order['column'] . ' ' . $order['val']);
             }
+            $this->_hasQuery = true;
         }
     }
 
@@ -258,6 +260,7 @@ class Filtering extends BaseObject
 
         BoxCard::begin([
             'type' => 'primary',
+            'isCollapsed' => !$this->_hasQuery,
             'title' => Html::icon('filter') . 'Filtering '
                 . Html::beginTag('span', ['class' => '{ctheme}btn-group'])
                 . Html::tag('span', Html::icon('plus')
@@ -333,7 +336,7 @@ class Filtering extends BaseObject
         BoxCard::end();
         $this->_form = ActiveForm::end();
         Cii::$app->getView()->registerJs("
-        $('[codeup-data-filter-falue]').click(function(){
+        $('[codeup-data-filter-value]').click(function(){
         }); 
         $('#form-grid-filtering-{$this->id} #codeup-filter-add').click(function(){
             var length_data = ($('[codeup-data-filtering]').length)

@@ -40,13 +40,14 @@ class BoxCard extends Widget
     public $tools_order = ['badge', 'collapse', 'remove'];
 
     public $loading = false;
+    public $isCollapsed = false;
     // --------------------------------------------------------------------
     /**
      * Initializes the widget.
      */
     public function init()
     {
-        Html::addCssClass($this->options, ['box', 'box-'.$this->type]);
+        Html::addCssClass($this->options, ['box', 'box-'.$this->type, ($this->isCollapsed ? 'collapsed-box':'')]);
         echo Html::beginTag('div', $this->options);
         if($this->header) {
             Html::addCssClass($this->headerOptions, 'box-header' . ($this->headerBorder ? ' with-border' : ''));
@@ -75,7 +76,7 @@ class BoxCard extends Widget
         echo Html::beginTag('div', $this->headerToolsOptions);
         if(in_array('collapse',$this->tools_order)){
             $this->headerTools['collapse'] = Html::button(
-                Html::faicon('minus'),
+                Html::faicon(($this->isCollapsed?'plus':'minus')),
                 [
                     'class'=>'btn btn-box-tool',
                     'data-widget'=>'collapse'
