@@ -6,21 +6,12 @@
  */
 class m180908_064554_table_sys_users extends \codeup\base\Migration
 {
-    protected $tableName = '{{%sys_users}}';
     protected $tableSysUsers = '{{%sys_users}}';
-    protected $tableSysGroups = '{{%sys_groups}}';
 
     public function up()
     {
         $this->mySQL_UTF8_unicode_InnoDB();
-        $this->createTable(
-            $this->tableSysGroups,
-            [
-                'id' => $this->string(32),
-                'PRIMARY KEY ([[id]])',
-            ],
-            $this->getTableOptions()
-        );
+
         $this->createTable(
             $this->tableSysUsers,
             [
@@ -36,20 +27,15 @@ class m180908_064554_table_sys_users extends \codeup\base\Migration
                 'created_by' => $this->columnCreatedBy(),
                 'created_at' => $this->columnCreatedAt(),
                 'updated_by' => $this->columnUpdatedBy(),
-                'updated_at' => $this->columnUpdatedAt(),
-                'FOREIGN KEY ([[group]]) REFERENCES ' . $this->tableSysGroups . ' ([[id]])' .
-                $this->buildFkClause('ON DELETE SET NULL', 'ON UPDATE CASCADE'),
+                'updated_at' => $this->columnUpdatedAt()
             ],
             $this->getTableOptions()
         );
-        $this->insert($this->tableSysGroups, [
-            'id' => 'su',
-        ]);
-        $this->insert($this->tableSysGroups, [
-            'id' => 'dev',
-        ]);
-        $this->insert($this->tableSysGroups, [
-            'id' => 'user',
+        $this->insert($this->tableSysUsers, [
+            'username' => 'superuser',
+            'password_hash' => '$2y$13$ykEAwdHZYaPWX3/145JTx.lqM9dlszXwuMPQ8oduuVkYgqgMrFPXe',
+            'fullname'=>'Super User',
+            'group' => 'su',
         ]);
         $this->insert($this->tableSysUsers, [
             'username' => '_codeup',
@@ -62,6 +48,5 @@ class m180908_064554_table_sys_users extends \codeup\base\Migration
     public function down()
     {
         $this->dropTable($this->tableSysUsers);
-        $this->dropTable($this->tableSysGroups);
     }
 }
