@@ -26,6 +26,6 @@ class WebController extends \yii\web\Controller
     public function init()
     {
         parent::init();
-
+        $this->getView()->title = $this->title;
     }
 }
