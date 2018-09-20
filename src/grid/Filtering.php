@@ -157,7 +157,6 @@ class Filtering extends BaseObject
                 $this->_query->addOrderBy($order['column'] . ' ' . $order['val']);
             }
         }
-        echo $this->_query->createCommand()->rawSql;
     }
 
 
@@ -224,7 +223,7 @@ class Filtering extends BaseObject
                     , ['class' => '{ctheme}input-group {ctheme}input-group-sm']
                 )
             ]
-        )->textInput(['name' => $this->formModelName . '[value][' . $i . ']']);
+        )->textInput(['codeup-data-filter-falue'=>true, 'name' => $this->formModelName . '[value][' . $i . ']']);
     }
 
     private function formFieldOrderItem($i)
@@ -334,7 +333,8 @@ class Filtering extends BaseObject
         BoxCard::end();
         $this->_form = ActiveForm::end();
         Cii::$app->getView()->registerJs("
-        $('#filteringmodel-column-*').click(function(){alert(111)}); 
+        $('[codeup-data-filter-falue]').click(function(){
+        }); 
         $('#form-grid-filtering-{$this->id} #codeup-filter-add').click(function(){
             var length_data = ($('[codeup-data-filtering]').length)
             var template = '<div codeup-data-filtering=\"base'+length_data+'\">'

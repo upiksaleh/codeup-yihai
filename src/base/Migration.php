@@ -65,11 +65,11 @@ class Migration extends \yii\db\Migration
     }
 
     protected function columnCreatedAt(){
-        return $this->integer();
+        return $this->integer()->comment('timestamp');
     }
 
     protected function columnUpdatedAt(){
-        return $this->integer();
+        return $this->integer()->comment('timestamp');
     }
 
 }
