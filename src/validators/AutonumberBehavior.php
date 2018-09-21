@@ -21,7 +21,7 @@ use Exception;
  *     return [
  *         ...
  *         [
- *             'class' => 'mdm\autonumber\Behavior',
+ *             'class' => 'codeup\validators\AutonumberBehavior',
  *             'value' => date('Ymd').'.?', // ? will replace with generated number
  *             'digit' => 6, // specify this if you need leading zero for number
  *         ]

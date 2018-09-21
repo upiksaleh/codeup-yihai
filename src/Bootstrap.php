@@ -39,9 +39,9 @@ class Bootstrap implements BootstrapInterface
         Yii::$app->view->theme->bootstrap($app);
 
         // autonumber validator
-
         Validator::$builtInValidators['nextValue'] = 'codeup\validators\AutonumberValidator';
         Validator::$builtInValidators['autonumber'] = 'codeup\validators\AutonumberValidator';
+
         if ($app->modules) {
             foreach ($app->modules as $name => $config) {
                 $module = $app->getModule($name);
