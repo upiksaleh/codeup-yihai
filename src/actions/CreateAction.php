@@ -16,13 +16,15 @@ namespace codeup\actions;
 class CreateAction extends BaseFormAction
 {
 
-   public function init()
-   {
-       $this->scenario = 'create';
-       $this->type = 'create';
-       $this->messageSuccess = 'Berhasil Tambah.!';
-       $this->messageError = 'Gagal Tambah.!';
-       parent::init();
-   }
+    public $baseLayoutView = '@codeup/views/_pages/base-create';
+
+    public function init()
+    {
+        $this->scenario = 'create';
+        $this->type = 'create';
+        $this->messageSuccess = 'Berhasil Tambah.!';
+        $this->messageError = 'Gagal Tambah.!';
+        parent::init();
+    }
 
 }

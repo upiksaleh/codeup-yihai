@@ -20,7 +20,6 @@ use yii\web\UploadedFile;
  */
 class BaseFormAction extends BaseCrudAction
 {
-
     public function init()
     {
         parent::init();

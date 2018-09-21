@@ -16,6 +16,7 @@ namespace codeup\actions;
 class UpdateAction extends BaseFormAction
 {
 
+    public $baseLayoutView = '@codeup/views/_pages/base-update';
     public function init()
     {
         $this->scenario = 'update';

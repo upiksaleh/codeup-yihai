@@ -42,7 +42,7 @@ class BaseCrudAction extends \codeup\base\Action
     /**
      * @var string path layout content
      */
-    public $baseLayoutView = '@codeup/views/_pages/base-create';
+    public $baseLayoutView;
 
     /**
      * @var string form file, jika null maka default adalah views/namacontroller/_form.php
