@@ -24,19 +24,6 @@ class ActionColumn extends \yii\grid\ActionColumn
         if(!$this->contentOptions)
             $this->contentOptions = ['class'=> '{ctheme}text-center'];
         parent::init();
-        $overlay = Html::tag('div', Html::faicon(['refresh','spin']), ['class'=>'overlay']);
-        Modal::begin([
-            'id' => 'codeup-modal-baseform',
-            'header' => '<div class="text-bold"><i class="fa fa-pencil-square-o"></i> <span class="modal-title"></span></div>',
-            'size' => Modal::SIZE_LARGE,
-            'clientOptions' => ['backdrop' => 'static'],
-            'clientEvents' => [
-                'shown.bs.modal' => 'function(event){var href=$(event.relatedTarget).attr("href");$(this).find(".modal-body").load(href);$(this).find(".modal-title").text($(event.relatedTarget).attr("title"))}',
-                'hidden.bs.modal' => 'function(event){$(this).find(".modal-body").html(\''.$overlay.'\');$(this).find(".modal-title").text("")}'
-            ],
-        ]);
-        echo $overlay;
-        Modal::end();
 
     }
 
@@ -45,7 +32,7 @@ class ActionColumn extends \yii\grid\ActionColumn
      */
     protected function initDefaultButtons()
     {
-        $modalOpt = ($this->useModal ? ['data-toggle'=>'modal','data-target'=>'#codeup-modal-baseform'] : []);
+        $modalOpt = ($this->useModal ? ['data-toggle'=>'modal','data-target'=>'#codeup-basemodal'] : []);
         $this->initDefaultButton('view', 'eye-open', $modalOpt);
         $this->initDefaultButton('update', 'pencil', $modalOpt);
         $this->initDefaultButton('delete', 'trash', [

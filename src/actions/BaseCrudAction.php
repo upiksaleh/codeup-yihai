@@ -77,7 +77,11 @@ class BaseCrudAction extends \codeup\base\Action
     public $formLayout = 'horizontal';
     public function init()
     {
+        //set baseCrudAction in controller
+        $this->controller->beforeInitBaseCrudAction($this);
+
         parent::init();
+
         if (isset($this->controller->modelClass) && ($this->controller->modelClass !== null) && $this->modelClass === null) {
             $this->modelClass = $this->controller->modelClass;
         }
@@ -95,6 +99,7 @@ class BaseCrudAction extends \codeup\base\Action
         if (strrchr($this->baseLayoutView, ".") !== '.php') {
             $this->baseLayoutView .= '.php';
         }
+
     }
 
     protected function findModel($params)

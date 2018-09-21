@@ -147,14 +147,13 @@ class Filtering extends BaseObject
                     $this->_query->andWhere($condition);
                 } else {
                     $andor = $this->formModel->andor[$i];
-                    if ($andor == 'and') {
+                    if (strtolower($andor) == 'and') {
                         $this->_query->andWhere($condition);
-                    } elseif ($andor == 'or') {
+                    } elseif (strtolower($andor) == 'or') {
                         $this->_query->orWhere($condition);
                     }
                 }
             }
-
             $this->_query->andWhere($this->baseWhere);
 
             foreach ($this->formModel->order as $i => $order) {

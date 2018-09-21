@@ -26,6 +26,7 @@ $config = [
     'controllerMap' => [
         'users'  => 'codeup\controllers\UsersController'
     ],
+    'timezone' => 'Asia/Makassar',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-codeup',
