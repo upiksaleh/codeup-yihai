@@ -11,7 +11,6 @@ namespace codeup\actions;
 /**
  * Class CreateAction
  * @package codeup\actions
- * @property \codeup\base\Controller $controller
  */
 class CreateAction extends BaseFormAction
 {

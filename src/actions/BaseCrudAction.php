@@ -8,9 +8,14 @@
 
 namespace codeup\actions;
 
-
+/**
+ * Class BaseCrudAction
+ * @package codeup\actions
+ * @property \codeup\base\Controller $controller
+ */
 class BaseCrudAction extends \codeup\base\Action
 {
+    public $baseId;
     /**
      * @var string nama model class
      */
@@ -90,5 +95,17 @@ class BaseCrudAction extends \codeup\base\Action
         if (strrchr($this->baseLayoutView, ".") !== '.php') {
             $this->baseLayoutView .= '.php';
         }
+    }
+
+    protected function findModel($params)
+    {
+        if(!empty($this->mergeFindParams))
+            $params = array_merge($params, $this->mergeFindParams);
+        $model = $this->modelClass;
+        if (($model = $model::findOne($params)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

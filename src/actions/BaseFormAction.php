@@ -16,7 +16,6 @@ use yii\web\UploadedFile;
 /**
  * Class BaseFormAction
  * @package codeup\actions
- * @property \codeup\base\Controller $controller
  */
 class BaseFormAction extends BaseCrudAction
 {
@@ -88,16 +87,5 @@ class BaseFormAction extends BaseCrudAction
                 $model->{$field} = json_encode($value);
             }
         }
-    }
-    private function findModel($params)
-    {
-        if(!empty($this->mergeFindParams))
-            $params = array_merge($params, $this->mergeFindParams);
-        $model = $this->modelClass;
-        if (($model = $model::findOne($params)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

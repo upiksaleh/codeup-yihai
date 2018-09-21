@@ -57,7 +57,9 @@ BoxCard::begin(ArrayHelper::merge([
     'tools_order' => ['collapse'],
 ],$boxCard));
 $filtering->renderForm();
-Pjax::begin([]);
+Pjax::begin([
+    'enablePushState' => false,
+]);
     echo Html::tag('div',$mainGrid, ['class'=>'{ctheme}table-responsive']);
 Pjax::end();
 BoxCard::end();
