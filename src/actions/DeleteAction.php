@@ -40,16 +40,4 @@ class DeleteAction extends BaseCrudAction
         }
         return $this->controller->redirect(['index']);
     }
-
-    private function findModel($params)
-    {
-        if(!empty($this->mergeFindParams))
-            $params = array_merge($params, $this->mergeFindParams);
-        $model = $this->modelClass;
-        if (($model = $model::findOne($params)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
 }
