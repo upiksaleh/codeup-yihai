@@ -16,34 +16,8 @@ use yii\web\NotFoundHttpException;
  * Class DeleteAction
  * @package codeup\actions
  */
-class DeleteAction extends \codeup\base\Action
+class DeleteAction extends BaseCrudAction
 {
-
-    /**
-     * @var string nama model class
-     */
-    public $modelClass = null;
-    /**
-     * @var \codeup\base\Model|\codeup\base\ActiveRecord class objek model
-     */
-    public $model = null;
-    /**
-     * @var array merge query find model
-     */
-    public $mergeFindParams = [];
-    public function init()
-    {
-        parent::init();
-
-        if (isset($this->controller->modelClass) && ($this->controller->modelClass !== null) && $this->modelClass === null) {
-            $this->modelClass = $this->controller->modelClass;
-        }
-
-        if (isset($this->controller->model) && ($this->controller->model !== null) && $this->model === null) {
-            $this->model = $this->controller->model;
-        }
-    }
-
     /**
      * @return bool
      * @throws MethodNotAllowedHttpException
