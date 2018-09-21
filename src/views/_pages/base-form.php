@@ -25,10 +25,17 @@ $typeForm = ($model->getIsNewRecord() ?
 $saveBtn = Html::submitButton(Html::faicon('save') . ' ' . $typeForm,
     ['class' => $this->ctheme(['btn', 'btn-success'])]
 );
-$cancelBtn = Html::a(Html::faicon('refresh') . ' ' . Yii::t('codeup', 'Batal'),
-    ['index'],
-    ['class' => $this->ctheme(['btn', 'btn-default'])]
-);
+if(Cii::$app->request->getIsAjax()) {
+    $cancelBtn = Html::button(Html::faicon('refresh') . ' ' . Yii::t('codeup', 'Batal'),
+        ['class' => $this->ctheme(['btn', 'btn-default']), 'data-dismiss' => 'modal']
+    );
+}else{
+    $cancelBtn = Html::a(Html::faicon('refresh') . ' ' . Yii::t('codeup', 'Batal'),
+        ['index'],
+        ['class' => $this->ctheme(['btn', 'btn-default'])]
+    );
+}
+
 $form = ActiveForm::begin([
     'id' => 'form-'.$this->context->getUniqueId().'-'.$this->context->action->id,
     'layout' => $formLayout,
@@ -43,16 +50,19 @@ $form = ActiveForm::begin([
         ],
     ],
 ]);
-BoxCard::begin([
-    'type' => 'primary',
-    'footer' => true,
-    'tools_order' => ['collapse'],
-    'title'=> $typeForm,
-    'footerContent' => $saveBtn . ' ' . $cancelBtn
-]);
-
-echo $this->renderFile($formView, ['model' => $model, 'form' => $form]);
-
-BoxCard::end();
+if(Cii::$app->request->getIsAjax()){
+    echo $this->renderFile($formView, ['model' => $model, 'form' => $form]);
+    echo $saveBtn . ' ' . $cancelBtn;
+}else {
+    BoxCard::begin([
+        'type' => 'primary',
+        'footer' => true,
+        'tools_order' => ['collapse'],
+        'title' => $typeForm,
+        'footerContent' => $saveBtn . ' ' . $cancelBtn
+    ]);
+    echo $this->renderFile($formView, ['model' => $model, 'form' => $form]);
+    BoxCard::end();
+}
 ActiveForm::end();
 $this->endContent();

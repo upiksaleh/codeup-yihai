@@ -34,6 +34,8 @@ class DataGridAction extends \codeup\base\Action
     public $boxCard = [];
     /** @var string */
     public $boxButton = '{insert}';
+
+    public $useModal = true;
     private $_settings = [];
 
     public function init()
@@ -60,6 +62,7 @@ class DataGridAction extends \codeup\base\Action
             'boxCard' => $this->boxCard,
             'filtering'=>$this->filtering,
             'gridView' => $this->gridView,
+            'useModal'=> $this->useModal
         ], $this->_settings);
 
         return $this->controller->render($this->baseView,$params);
