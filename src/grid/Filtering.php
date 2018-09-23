@@ -342,30 +342,30 @@ class Filtering extends BaseObject
         $('[codeup-data-filter-value]').click(function(){
         }); 
         $('#form-grid-filtering-{$this->id} #codeup-filter-add').click(function(){
-            var length_data = ($('[codeup-data-filtering]').length)
+            var length_data = ($('[codeup-data-filtering]').length);
             var template = '<div codeup-data-filtering=\"base'+length_data+'\">'
                 + $('[codeup-data-filtering-template]').html().replace(/{baseindex}/g,'base'+length_data)
                 + '</div>';
             $(template).appendTo('.codeup-grid-filter-{$this->id}');
-        })
+        });
         $('#form-grid-filtering-{$this->id} #codeup-filter-order-add').click(function(){
-            var length_data = ($('[codeup-order-filtering]').length)
+            var length_data = ($('[codeup-order-filtering]').length);
             var template = '<div codeup-order-filtering=\"base'+length_data+'\">'
                 + $('[codeup-order-filtering-template]').html().replace(/{baseindex}/g,'base'+length_data)
                 + '</div>';
             $(template).appendTo('.codeup-order-filter-{$this->id}');
-        })
+        });
         $('#form-grid-filtering-{$this->id}').on('click','.codeup-filter-remove', function(){
             $(this).closest('div[codeup-data-filtering]').remove()
-        })
+        });
         $('#form-grid-filtering-{$this->id}').on('click','.codeup-filter-order-remove', function(){
             $(this).closest('div[codeup-order-filtering]').remove()
-        })
+        });
         $('[codeup-gridfilter-andor]').change(function(){
             if($(this).val()){
                 $('.codeup-grid-filter-template-" . $this->id . "').clone().show().insertAfter('.codeup-grid-filter-" . $this->id . "');
             }
-        })
+        });
         ");
     }
     /**

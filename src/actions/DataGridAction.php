@@ -53,33 +53,40 @@ class DataGridAction extends \codeup\base\Action
         $this->initGridView();
     }
 
-    public function run(){
+    public function run()
+    {
 
         $params = array_merge([
             'modelClass' => $this->modelClass,
             'model' => $this->model,
-            'boxButton'=>$this->boxButton,
+            'boxButton' => $this->boxButton,
             'boxCard' => $this->boxCard,
-            'filtering'=>$this->filtering,
+            'filtering' => $this->filtering,
             'gridView' => $this->gridView,
-            'useModal'=> $this->useModal
+            'useModal' => $this->useModal
         ], $this->_settings);
 
-        return $this->controller->render($this->baseView,$params);
+        return $this->controller->render($this->baseView, $params);
     }
-    private function initGridView(){
+
+    private function initGridView()
+    {
 
     }
-    private function initFiltering(){
-        $this->filtering =  Cii::createObject(ArrayHelper::merge([
-            'class'=> 'codeup\grid\Filtering',
-            'modelClass'    => $this->modelClass,
+
+    private function initFiltering()
+    {
+        $this->filtering = Cii::createObject(ArrayHelper::merge([
+            'class' => 'codeup\grid\Filtering',
+            'modelClass' => $this->modelClass,
         ], $this->filtering));
     }
+
     public function __set($name, $value)
     {
         return $this->_settings[$name] = $value;
     }
+
     public function __get($name)
     {
         return isset($this->_settings[$name]) ? $this->_settings[$name] : null;

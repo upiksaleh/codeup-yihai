@@ -8,10 +8,15 @@
 
 namespace codeup\base;
 
+use Cii;
+use codeup\filters\AccessControl;
 
+/**
+ * Class Action
+ * @package codeup\base
+ */
 class Action extends \yii\base\Action
 {
-
     /**
      * @var array access rules
      * ```php
@@ -28,18 +33,18 @@ class Action extends \yii\base\Action
      *  'groupsCanAccess' => ['su','admin','operator','etc']
      * ```
      */
-    public $groupsCanAccess = ['su'];
+    public $groupsCanAccess;
 
     public function init()
     {
         if (!empty($this->access_rules)) {
-            $this->controller->attachBehavior('access_action_create', [
+            $this->controller->attachBehavior('codeup_access_action', [
                 'class' => 'codeup\filters\AccessControl',
                 'rules' => $this->access_rules
             ]);
         }
-        if (!empty($this->groupsCanAccess)) {
-            $this->controller->attachBehavior('access_action_create', [
+        if (!empty($this->groupsCanAccess) && !Cii::$app->user->isGuest) {
+            $this->controller->attachBehavior('codeup_access_action_groups', [
                 'class' => 'codeup\filters\AccessControl',
                 'rules' => [
                     ['allow' => true, 'groups' => $this->groupsCanAccess],

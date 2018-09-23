@@ -8,10 +8,12 @@
 
 namespace codeup\actions;
 
+use yii\web\NotFoundHttpException;
+
 /**
  * Class BaseCrudAction
  * @package codeup\actions
- * @property \codeup\base\Controller $controller
+ * @property \codeup\base\BaseCrudController $controller
  */
 class BaseCrudAction extends \codeup\base\Action
 {

@@ -11,10 +11,15 @@ namespace codeup\grid\column;
 use Cii;
 use codeup\theming\Html;
 use codeup\theming\Modal;
+use yii\helpers\ArrayHelper;
 
 class ActionColumn extends \yii\grid\ActionColumn
 {
+    /** @var bool jika false maka tidak akan menggunakan modal untuk form */
     public $useModal = true;
+    /** @var array query params pada url */
+    public $queryParams = [];
+
     public function init()
     {
         if(!$this->header)
@@ -25,6 +30,18 @@ class ActionColumn extends \yii\grid\ActionColumn
             $this->contentOptions = ['class'=> '{ctheme}text-center'];
         parent::init();
 
+    }
+    public function createUrl($action, $model, $key, $index)
+    {
+        if(!empty($this->queryParams)){
+            $key = [];
+            foreach($this->queryParams as $k){
+                $key[$k] = $model->{$k};
+            }
+        }else{
+            $key = $model->getPrimaryKey(true);
+        }
+        return parent::createUrl($action, $model, $key, $index);
     }
 
     /**

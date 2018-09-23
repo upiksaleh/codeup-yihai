@@ -26,18 +26,18 @@ $saveBtn = Html::submitButton(Html::faicon('save') . ' ' . $typeForm,
     ['class' => $this->ctheme(['btn', 'btn-success'])]
 );
 if(Cii::$app->request->getIsAjax()) {
-    $cancelBtn = Html::button(Html::faicon('refresh') . ' ' . Yii::t('codeup', 'Batal'),
+    $cancelBtn = Html::button(Html::faicon('undo') . ' ' . Yii::t('codeup', 'Batal'),
         ['class' => $this->ctheme(['btn', 'btn-default']), 'data-dismiss' => 'modal']
     );
 }else{
-    $cancelBtn = Html::a(Html::faicon('refresh') . ' ' . Yii::t('codeup', 'Batal'),
+    $cancelBtn = Html::a(Html::faicon('undo') . ' ' . Yii::t('codeup', 'Batal'),
         ['index'],
         ['class' => $this->ctheme(['btn', 'btn-default'])]
     );
 }
 
 $form = ActiveForm::begin([
-    'id' => 'form-'.$this->context->getUniqueId().'-'.$this->context->action->id,
+    'id' => 'form-'.str_replace('/','-',$this->context->getUniqueId()).'-'.$this->context->action->id,
     'layout' => $formLayout,
     'fieldConfig' => [
         'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",

@@ -29,6 +29,7 @@ use yii\helpers\Json;
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Paul Klimov <klimov.paul@gmail.com>
+ * @author Upik Saleh <upxsal@gmail.com>
  * @since 2.0.6
  */
 trait WidgetTrait
@@ -69,7 +70,6 @@ trait WidgetTrait
     protected function registerPlugin($name)
     {
         $view = $this->getView();
-
         //BootstrapPluginAsset::register($view);
 
         $id = $this->options['id'];

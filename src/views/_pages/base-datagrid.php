@@ -19,21 +19,21 @@ use codeup\theming\Modal;
 echo Html::beginTag('div', ['class' => '{ctheme}row']);
 echo Html::beginTag('div', ['class' => '{ctheme}col-xs-12']);
 $mainGrid = GridView::widget(ArrayHelper::merge([
-    'tableOptions' => ['class' => $this->ctheme(['table','table-striped','table-bordered','table-condensed','table-hover'])],
+    'tableOptions' => ['class' => $this->ctheme(['table', 'table-striped', 'table-bordered', 'table-condensed', 'table-hover'])],
     'dataProvider' => $filtering->getDataProvider(),
 ], $gridView));
-$btnInsertOptions = ['class'=> $this->ctheme(['btn','btn-primary','btn-sm']), 'title' => Cii::t('codeup', 'Tambah Item')];
-if($useModal){
-    $btnInsertOptions['data-toggle']='modal';
-    $btnInsertOptions['data-target']='#codeup-basemodal';
+$btnInsertOptions = ['class' => $this->ctheme(['btn', 'btn-primary', 'btn-sm']), 'title' => Cii::t('codeup', 'Tambah Item')];
+if ($useModal) {
+    $btnInsertOptions['data-toggle'] = 'modal';
+    $btnInsertOptions['data-target'] = '#codeup-basemodal';
 }
 
-$btnInsert = Html::a(Html::faicon('plus').' '.Cii::t('codeup','Tambah'), ['create'], $btnInsertOptions);
+$btnInsert = Html::a(Html::faicon('plus') . ' ' . Cii::t('codeup', 'Tambah'), ['create'], $btnInsertOptions);
 $boxTitle = '{insert}';
-if(isset($boxCard['title'])){
+if (isset($boxCard['title'])) {
     $boxTitle = $boxCard['title'];
     unset($boxCard['title']);
-}else{
+} else {
     $boxTitle = '{insert}';
 }
 $boxTitle = strtr($boxTitle, ['{insert}' => $btnInsert]);
@@ -42,12 +42,12 @@ BoxCard::begin(ArrayHelper::merge([
     'title' => $boxTitle,
     'headerBorder' => true,
     'tools_order' => ['collapse'],
-],$boxCard));
+], $boxCard));
 $filtering->renderForm();
 Pjax::begin([
     'enablePushState' => false,
 ]);
-    echo Html::tag('div',$mainGrid, ['class'=>'{ctheme}table-responsive']);
+echo Html::tag('div', $mainGrid, ['class' => '{ctheme}table-responsive']);
 Pjax::end();
 BoxCard::end();
 Html::endTag('div'); // end .xs-12
