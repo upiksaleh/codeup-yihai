@@ -17,9 +17,10 @@ namespace codeup\theming;
 use Cii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+
 /**
- * Class Menu
- * Theme menu widget.
+ * Class SideBar
+ * @package codeup\theming
  */
 class SideBar extends \yii\widgets\Menu
 {
@@ -200,13 +201,9 @@ class SideBar extends \yii\widgets\Menu
                 $route = ltrim(Cii::$app->controller->module->getUniqueId() . '/' . $route, '/');
             }
             $route = ltrim($route, '/');
+            if(Cii::$app->controller->getUniqueId() == $route || Cii::$app->controller->getUniqueId() .'/index' == $route)
+                return true;
 
-            $route_explode = explode('/',$this->route);
-            $route_explode2 = explode('/',$route);
-            if(isset($route_explode[0]) && isset($route_explode2[0]) && $route_explode[0] == $route_explode2[0]){
-                if(!isset($item['_action']))
-                    return true;
-            }
             if ($route != $this->route && $route !== $this->noDefaultRoute && $route !== $this->noDefaultAction) {
                 return false;
             }

@@ -9,6 +9,8 @@
 namespace codeup\base;
 
 
+use yii\web\NotFoundHttpException;
+
 class BaseCrudController extends UserController
 {
     /**
@@ -46,5 +48,15 @@ class BaseCrudController extends UserController
      */
     public function beforeInitBaseCrudAction($baseCrudAction)
     {
+    }
+
+    protected function findModel($params)
+    {
+        $model = $this->modelClass;
+        if (($model = $model::findOne($params)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

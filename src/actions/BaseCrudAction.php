@@ -101,6 +101,9 @@ class BaseCrudAction extends \codeup\base\Action
         if (strrchr($this->baseLayoutView, ".") !== '.php') {
             $this->baseLayoutView .= '.php';
         }
+        if (strrchr($this->formView, ".") !== '.php') {
+            $this->formView .= '.php';
+        }
 
     }
 
