@@ -9,7 +9,9 @@
 namespace codeup\base;
 
 
-class ActiveRecord extends \yii\db\ActiveRecord
+use yii\base\DynamicModel;
+
+class FilterModel extends DynamicModel
 {
-    use BaseModelTrait;
+
 }

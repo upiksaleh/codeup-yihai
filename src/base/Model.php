@@ -11,5 +11,5 @@ namespace codeup\base;
 
 class Model extends \yii\base\Model
 {
-
+    use BaseModelTrait;
 }

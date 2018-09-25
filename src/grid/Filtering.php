@@ -141,6 +141,7 @@ class Filtering extends BaseObject
                     $value = NULL;
                 }
                 if(!$condition) {
+                    $column = $this->modelClass::tableName().'.'.$column;
                     $condition = [$op, $column, $value];
                 }
                 if (!isset($this->formModel->andor[$i])) {

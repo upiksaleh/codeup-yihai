@@ -23,9 +23,10 @@ class DataGridAction extends \codeup\base\Action
 {
     public $baseView = '@codeup/views/_pages/base-datagrid';
     public $modelClass;
-    public $model;
+    /** @var null|\codeup\base\Model */
+    public $model = null;
     /** @var ActiveDataProvider */
-    public $dataProvider = [];
+    public $dataProvider;
     /** @var Filtering */
     public $filtering = [];
     /** @var GridView */
@@ -48,13 +49,19 @@ class DataGridAction extends \codeup\base\Action
         if (isset($this->controller->model) && ($this->controller->model !== null) && $this->model === null) {
             $this->model = $this->controller->model;
         }
-
+        if($this->model === null){
+            $this->model = new $this->modelClass();
+        }
         $this->initFiltering();
         $this->initGridView();
     }
 
     public function run()
     {
+        $this->dataProvider = $this->filtering->getDataProvider();
+        if($this->model->hasMethod('searchDataProvider')){
+            $this->model->searchDataProvider($this->dataProvider);
+        }
 
         $params = array_merge([
             'modelClass' => $this->modelClass,
@@ -62,6 +69,7 @@ class DataGridAction extends \codeup\base\Action
             'boxButton' => $this->boxButton,
             'boxCard' => $this->boxCard,
             'filtering' => $this->filtering,
+            'dataProvider' => $this->dataProvider,
             'gridView' => $this->gridView,
             'useModal' => $this->useModal
         ], $this->_settings);

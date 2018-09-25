@@ -6,10 +6,10 @@
  * @author Upik Saleh <upxsal@gmail.com>
  */
 
-namespace codeup\base;
+namespace codeup\grid;
 
 
-class ActiveRecord extends \yii\db\ActiveRecord
+class SimpleFiltering
 {
-    use BaseModelTrait;
+
 }

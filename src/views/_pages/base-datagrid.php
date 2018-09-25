@@ -18,10 +18,7 @@ use codeup\theming\Modal;
 
 echo Html::beginTag('div', ['class' => '{ctheme}row']);
 echo Html::beginTag('div', ['class' => '{ctheme}col-xs-12']);
-$mainGrid = GridView::widget(ArrayHelper::merge([
-    'tableOptions' => ['class' => $this->ctheme(['table', 'table-striped', 'table-bordered', 'table-condensed', 'table-hover'])],
-    'dataProvider' => $filtering->getDataProvider(),
-], $gridView));
+
 $btnInsertOptions = ['class' => $this->ctheme(['btn', 'btn-primary', 'btn-sm']), 'title' => Cii::t('codeup', 'Tambah Item')];
 if ($useModal) {
     $btnInsertOptions['data-toggle'] = 'modal';
@@ -43,11 +40,24 @@ BoxCard::begin(ArrayHelper::merge([
     'headerBorder' => true,
     'tools_order' => ['collapse'],
 ], $boxCard));
-$filtering->renderForm();
+if($filtering !== false) {
+    $filtering->renderForm();
+}
 Pjax::begin([
     'enablePushState' => false,
+    'timeout' => false,
+    'clientOptions' => [
+        'method' => 'GET',
+    ]
 ]);
-echo Html::tag('div', $mainGrid, ['class' => '{ctheme}table-responsive']);
+
+echo Html::beginTag('div',['class' => '{ctheme}table-responsive']);
+echo GridView::widget(ArrayHelper::merge([
+    'tableOptions' => ['class' => $this->ctheme(['table', 'table-striped', 'table-bordered', 'table-condensed', 'table-hover'])],
+    'dataProvider' => $dataProvider,
+    'filterModel' => $model->getFilterModel()
+], $gridView));
+echo Html::endTag('div');
 Pjax::end();
 BoxCard::end();
 Html::endTag('div'); // end .xs-12

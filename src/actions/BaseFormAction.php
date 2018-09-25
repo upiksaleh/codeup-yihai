@@ -19,6 +19,8 @@ use yii\web\UploadedFile;
  */
 class BaseFormAction extends BaseCrudAction
 {
+    /** @var \codeup\theming\ActiveForm */
+    public $formConfig = [];
     public function init()
     {
         parent::init();
@@ -60,7 +62,8 @@ class BaseFormAction extends BaseCrudAction
             'model' => $this->model,
             'formView' => $this->formView,
             'baseLayoutView' => $this->baseLayoutView,
-            'formLayout' => $this->formLayout
+            'formLayout' => $this->formLayout,
+            'formConfig' => $this->formConfig,
         ];
 
         if (Cii::$app->request->isAjax) {
