@@ -68,6 +68,9 @@ $config = [
             'bundles' => [
             ],
         ],
+        'formatter' => [
+            'class' => 'codeup\base\Formatter'
+        ]
     ],
     'modules'   => require 'modules.php',
     'params'    => require 'params.php',

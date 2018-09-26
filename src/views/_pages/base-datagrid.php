@@ -57,9 +57,6 @@ echo GridView::widget(ArrayHelper::merge([
         [
             'class' => '\dosamigos\grid\behaviors\LoadingBehavior',
             'type' => 'bars'
-        ],
-        [
-            'class' => '\dosamigos\grid\behaviors\ResizableColumnsBehavior',
         ]
     ],
     'tableOptions' => ['class' => $this->ctheme(['table', 'table-striped', 'table-bordered', 'table-condensed', 'table-hover'])],
