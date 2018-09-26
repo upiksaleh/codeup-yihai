@@ -62,7 +62,9 @@ class DataGridAction extends \codeup\base\Action
         if($this->model->hasMethod('searchDataProvider')){
             $this->model->searchDataProvider($this->dataProvider);
         }
-
+        if($this->model->hasMethod('filterSort')) {
+            $this->dataProvider->setSort($this->model->filterSort());
+        }
         $params = array_merge([
             'modelClass' => $this->modelClass,
             'model' => $this->model,

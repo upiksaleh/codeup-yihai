@@ -55,6 +55,10 @@ trait BaseModelTrait
         return [];
     }
 
+    public function filterSort(){
+        return [];
+    }
+
     /**
      * @param $dataProvider \yii\data\ActiveDataProvider
      */
