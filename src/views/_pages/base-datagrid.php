@@ -53,6 +53,15 @@ Pjax::begin([
 
 echo Html::beginTag('div',['class' => '{ctheme}table-responsive']);
 echo GridView::widget(ArrayHelper::merge([
+    'behaviors' => [
+        [
+            'class' => '\dosamigos\grid\behaviors\LoadingBehavior',
+            'type' => 'bars'
+        ],
+        [
+            'class' => '\dosamigos\grid\behaviors\ResizableColumnsBehavior',
+        ]
+    ],
     'tableOptions' => ['class' => $this->ctheme(['table', 'table-striped', 'table-bordered', 'table-condensed', 'table-hover'])],
     'dataProvider' => $dataProvider,
     'filterModel' => $model->getFilterModel()

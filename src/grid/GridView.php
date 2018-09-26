@@ -12,7 +12,7 @@ namespace codeup\grid;
 use yii\grid\GridViewAsset;
 use yii\helpers\Json;
 
-class GridView extends \yii\grid\GridView
+class GridView extends \dosamigos\grid\GridView
 {
     public function init()
     {
