@@ -64,7 +64,7 @@ trait BaseModelTrait
         $params = Cii::$app->request->getBodyParams();
         if(empty($params))
             $params = Cii::$app->request->getQueryParams();
-        if($this->_filterModel->load($params)){
+        if($this->_filterModel->load($params) && $this->_filterModel->validate()){
             $this->onSearch($dataProvider->query, $this->_filterModel);
         }
     }
