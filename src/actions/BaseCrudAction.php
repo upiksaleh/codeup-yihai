@@ -56,7 +56,9 @@ class BaseCrudAction extends \codeup\base\Action
      */
     public $formView = null;
 
+    public $defaultDirUploads = 'uploads';
 
+    /** @var array upload config */
     public $uploadFields = [];
     /**
      * @var string alert pesan ketika sukses menyimpan

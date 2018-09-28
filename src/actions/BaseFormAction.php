@@ -10,6 +10,9 @@ namespace codeup\actions;
 
 use Cii;
 use yii\db\IntegrityException;
+use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
+use yii\imagine\Image;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
@@ -21,15 +24,15 @@ class BaseFormAction extends BaseCrudAction
 {
     /** @var \codeup\theming\ActiveForm */
     public $formConfig = [];
+
     public function init()
     {
         parent::init();
         if ($this->model === null) {
-            if($this->type === 'create') {
+            if ($this->type === 'create') {
                 $this->model = new $this->modelClass();
                 $this->model->loadDefaultValues();
-            }
-            elseif($this->type === 'update') {
+            } elseif ($this->type === 'update') {
                 $queryParams = Cii::$app->request->getQueryParams();
                 $this->model = $this->findModel($queryParams);
             }
@@ -75,19 +78,33 @@ class BaseFormAction extends BaseCrudAction
 
     private function handleUpload()
     {
-        if(!empty($this->field_upload)){
-            $field_db_value = [];
-            foreach($this->field_upload as $field => $field_options) {
-                foreach(UploadedFile::getInstances($model, $field) as $file){
-                    $format_date = Yii::$app->formatter->asDate('now','php:Y-m-d_His');
-                    $file_path = $field_options['dir'] . $format_date . '.' . $file->extension;
-                    if($file->saveAs($file_path)){
-                        $field_db_value[$field_options['field_db']][] = $file_path;
+        if (!empty($this->uploadFields)) {
+            foreach ($this->uploadFields as $field => $field_options) {
+                foreach (UploadedFile::getInstances($this->model, $field . '_upload') as $file) {
+                    $dir = $this->defaultDirUploads . (isset($field_options['dir']) ? '/' . $field_options['dir'] : '');
+                    $preFilename = (isset($field_options['preFilename']) ? strtr($field_options['preFilename'], $this->model->getAttributes()) : '');
+                    $deleteOnUpdate = (isset($field_options['deleteOnUpdate']) ? $field_options['deleteOnUpdate'] : true);
+                    $fileName = $preFilename . time() . '.' . $file->extension;
+                    $filePath = $dir . '/' . $fileName;
+                    if ($file->saveAs($filePath)) {
+                        // delete old
+                        if ($deleteOnUpdate && !$this->model->getIsNewRecord() && $this->model->getOldAttribute($field)) {
+                            $field_old_value = $this->model->getOldAttribute($field);
+                            $field_old_value_ext = substr(strrchr($field_old_value, "."), 0);
+                            $onlySearch = substr($field_old_value, 0, strrpos($field_old_value, $field_old_value_ext)) . '*';
+                            $oldFiles = FileHelper::findFiles($dir, ['only' => [$onlySearch]]);
+                            foreach ($oldFiles as $oldFile) {
+                                FileHelper::unlink($oldFile);
+                            }
+                        }
+                        // create thumb
+                        if (isset($field_options['createThumb']) && $field_options['createThumb'] === true) {
+                            $fileNameThumb = $preFilename . time() . '-thumb.' . $file->extension;
+                            Image::thumbnail($filePath, 200, 200)->save($dir . '/' . $fileNameThumb);
+                        }
+                        $this->model->{$field} = $fileName;
                     }
                 }
-            }
-            foreach($field_db_value as $field => $value){
-                $model->{$field} = json_encode($value);
             }
         }
     }
