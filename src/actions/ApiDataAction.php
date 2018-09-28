@@ -23,6 +23,19 @@ class ApiDataAction extends \codeup\base\Action
     /** @var \codeup\base\ActiveRecord */
     public $model;
 
+    public $queryParams = [];
+
+    public $fields;
+    /**
+     * @var \Closure
+     * ```php
+     *  [
+     *      "dataCallback" => function($data){ return $data; }
+     *  ]
+     * ```
+     */
+    public $dataCallback = null;
+
     public function init()
     {
         parent::init();
@@ -35,15 +48,24 @@ class ApiDataAction extends \codeup\base\Action
         }
     }
 
-    public function run(){
+    public function run()
+    {
         Cii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $queryParams = Cii::$app->request->getQueryParams();
+        if (!empty($this->queryParams))
+            $queryParams = $this->queryParams;
+        else
+            $queryParams = Cii::$app->request->getQueryParams();
         $query = new ActiveQuery($this->modelClass);
-        return [
-            'results' =>  $query
-                ->filterWhere($queryParams)
-                ->asArray()
-                ->all(),
-        ];
+        if($this->fields){
+            $query->select($this->fields);
+        }
+        $data = $query
+            ->filterWhere($queryParams)
+            ->asArray()
+            ->all();
+        if($this->dataCallback !== null){
+            return call_user_func($this->dataCallback, $data);
+        }
+        return $data;
     }
 }
