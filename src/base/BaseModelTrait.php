@@ -37,7 +37,7 @@ trait BaseModelTrait
 
     public function scenarios()
     {
-        return array_merge(parent::scenarios(), $this->_codeup_scenarios);
+        return array_merge($this->_codeup_scenarios, parent::scenarios());
     }
 
     public function addScenario($name, $attributes = [])

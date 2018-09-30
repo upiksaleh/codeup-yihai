@@ -26,6 +26,10 @@ class Cii extends \yii\BaseYii
 
     }
 
+    public static function getGroupAndUserId(){
+
+        return static::getUserIdentity()->getGroup() .'|'.static::getUserIdentity()->getId();
+    }
     /**
      * @param string $key
      * @param null|string|array $default    default value jika tidak ditemukan key pada params

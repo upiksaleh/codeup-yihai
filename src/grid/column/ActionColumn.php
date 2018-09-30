@@ -49,12 +49,12 @@ class ActionColumn extends \yii\grid\ActionColumn
      */
     protected function initDefaultButtons()
     {
-        $modalOpt = ($this->useModal ? ['data-toggle'=>'modal','data-target'=>'#codeup-basemodal'] : []);
-        $this->initDefaultButton('view', 'eye-open', $modalOpt);
-        $this->initDefaultButton('update', 'pencil', $modalOpt);
+        $this->initDefaultButton('view', 'eye-open', ($this->useModal ? ['data-toggle'=>'modal','data-target'=>'#codeup-basemodal', 'data-modal-type'=>'view'] : []));
+        $this->initDefaultButton('update', 'pencil', ($this->useModal ? ['data-toggle'=>'modal','data-target'=>'#codeup-basemodal', 'data-modal-type'=>'update'] : []));
         $this->initDefaultButton('delete', 'trash', [
             'data-confirm' => Cii::t('yii', 'Are you sure you want to delete this item?'),
             'data-method' => 'post',
+            'data-modal-type'=>'delete'
         ]);
     }
 }

@@ -19,7 +19,7 @@ use codeup\theming\Modal;
 echo Html::beginTag('div', ['class' => '{ctheme}row']);
 echo Html::beginTag('div', ['class' => '{ctheme}col-xs-12']);
 
-$btnInsertOptions = ['class' => $this->ctheme(['btn', 'btn-primary', 'btn-sm']), 'title' => Cii::t('codeup', 'Tambah Item')];
+$btnInsertOptions = ['class' => $this->ctheme(['btn', 'btn-primary', 'btn-sm']), 'title' => Cii::t('codeup', 'Tambah Item'), 'data-modal-type'=>'insert'];
 if ($useModal) {
     $btnInsertOptions['data-toggle'] = 'modal';
     $btnInsertOptions['data-target'] = '#codeup-basemodal';

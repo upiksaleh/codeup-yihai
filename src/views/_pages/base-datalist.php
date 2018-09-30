@@ -13,7 +13,7 @@ use yii\widgets\Pjax;
 
 BoxCard::begin([
     'type' => 'primary',
-    'title' => Html::a(Html::faicon('plus').' Tambah', ['create'], ['class'=> $this->ctheme(['btn','btn-primary','btn-sm']), 'title' => Yii::t('codeup', 'Tambah Item')]),
+    'title' => Html::a(Html::faicon('plus').' Tambah', ['create'], ['class'=> $this->ctheme(['btn','btn-primary','btn-sm']), 'title' => Yii::t('codeup', 'Tambah Item'), 'data-modal-type'=>'insert']),
     'headerBorder' => false,
     'tools_order' => ['collapse'],
 ]);

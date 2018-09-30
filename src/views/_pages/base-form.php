@@ -15,6 +15,7 @@
 use codeup\theming\Html;
 use codeup\theming\BoxCard;
 use codeup\theming\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 $this->beginContent($baseLayoutView);
 
@@ -36,7 +37,7 @@ if(Cii::$app->request->getIsAjax()) {
     );
 }
 
-$form = ActiveForm::begin([
+$form = ActiveForm::begin(ArrayHelper::merge([
     'id' => 'form-'.str_replace('/','-',$this->context->getUniqueId()).'-'.$this->context->action->id,
     'layout' => $formLayout,
     'fieldConfig' => [
@@ -49,7 +50,7 @@ $form = ActiveForm::begin([
             'hint' => '',
         ],
     ],
-]);
+], $formConfig));
 if(Cii::$app->request->getIsAjax()){
     echo $this->renderFile($formView, ['model' => $model, 'form' => $form]);
     echo $saveBtn . ' ' . $cancelBtn;
