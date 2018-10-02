@@ -69,6 +69,8 @@ class BaseFormAction extends BaseCrudAction
             'formConfig' => $this->formConfig,
         ];
 
+        $params = ArrayHelper::merge($params, $this->params);
+        $params['_params'] = $params;
         if (Cii::$app->request->isAjax) {
             return $this->controller->renderAjax($this->baseFormView, $params);
         } else {

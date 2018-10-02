@@ -17,7 +17,7 @@ use codeup\theming\BoxCard;
 use codeup\theming\ActiveForm;
 use yii\helpers\ArrayHelper;
 
-$this->beginContent($baseLayoutView);
+$this->beginContent($baseLayoutView, $_params);
 
 $typeForm = ($model->getIsNewRecord() ?
     Yii::t('codeup', 'Tambah') :
@@ -62,7 +62,8 @@ if(Cii::$app->request->getIsAjax()){
         'title' => $typeForm,
         'footerContent' => $saveBtn . ' ' . $cancelBtn
     ]);
-    echo $this->renderFile($formView, ['model' => $model, 'form' => $form]);
+    $_params['form'] = $form;
+    echo $this->renderFile($formView, $_params);
     BoxCard::end();
 }
 ActiveForm::end();

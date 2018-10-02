@@ -76,7 +76,6 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            echo $this->group;
             $identity = Cii::$app->user->getIdentityGroupClass($this->group);
             $this->_user = $identity::findByUsername($this->username);
         }

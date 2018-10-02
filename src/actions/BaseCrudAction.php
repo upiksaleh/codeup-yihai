@@ -78,6 +78,10 @@ class BaseCrudAction extends \codeup\base\Action
      */
     public $enableAlertDanger = false;
 
+    /**
+     * @var array params yang akan ditambahkan pada view
+     */
+    public $params = [];
     public $formLayout = 'horizontal';
     public function init()
     {
