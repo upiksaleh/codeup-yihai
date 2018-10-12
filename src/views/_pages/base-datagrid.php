@@ -20,20 +20,42 @@ echo Html::beginTag('div', ['class' => '{ctheme}row']);
 echo Html::beginTag('div', ['class' => '{ctheme}col-xs-12']);
 
 $btnInsertOptions = ['class' => $this->ctheme(['btn', 'btn-primary', 'btn-sm']), 'title' => Cii::t('codeup', 'Tambah Item'), 'data-modal-type'=>'insert'];
+$btnImportOptions = ['class' => $this->ctheme(['btn', 'btn-default', 'btn-sm']), 'title' => Cii::t('codeup', 'Import Data'), 'data-modal-type'=>'import'];
+$btnExportOptions = ['class' => $this->ctheme(['btn', 'btn-default', 'btn-sm']), 'title' => Cii::t('codeup', 'Export Data'), 'data-modal-type'=>'export'];
 if ($useModal) {
     $btnInsertOptions['data-toggle'] = 'modal';
     $btnInsertOptions['data-target'] = '#codeup-basemodal';
+    $btnImportOptions['data-toggle'] = 'modal';
+    $btnImportOptions['data-target'] = '#codeup-basemodal';
+    $btnExportOptions['data-toggle'] = 'modal';
+    $btnExportOptions['data-target'] = '#codeup-basemodal';
 }
 
 $btnInsert = Html::a(Html::faicon('plus') . ' ' . Cii::t('codeup', 'Tambah'), ['create'], $btnInsertOptions);
+$btnImport = "";
+$btnExport = "";
+if(in_array('import', array_keys($this->context->actions())))
+    $btnImport = Html::a(Html::faicon('upload') . ' ' . Cii::t('codeup', 'Import'), ['import'], $btnImportOptions);
+if(in_array('export', array_keys($this->context->actions())))
+    $btnExport = Html::a(Html::faicon('download') . ' ' . Cii::t('codeup', 'Export'), ['export'], $btnExportOptions);
 $boxTitle = '{insert}';
 if (isset($boxCard['title'])) {
     $boxTitle = $boxCard['title'];
     unset($boxCard['title']);
-} else {
-    $boxTitle = '{insert}';
 }
-$boxTitle = strtr($boxTitle, ['{insert}' => $btnInsert]);
+if($btnImport || $btnExport){
+    $boxTitle .= ' <span class="btn-group">';
+    if($btnImport)
+        $boxTitle .= '{import}';
+    if($btnExport)
+        $boxTitle .= '{export}';
+    $boxTitle .= '</span>';
+}
+$boxTitle = strtr($boxTitle, [
+    '{insert}' => $btnInsert,
+    '{import}' => $btnImport,
+    '{export}' => $btnExport,
+]);
 BoxCard::begin(ArrayHelper::merge([
     'type' => 'primary',
     'title' => $boxTitle,

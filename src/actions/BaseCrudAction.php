@@ -97,7 +97,9 @@ class BaseCrudAction extends \codeup\base\Action
         if (isset($this->controller->model) && ($this->controller->model !== null) && $this->model === null) {
             $this->model = $this->controller->model;
         }
-
+        if($this->model === null && $this->modelClass !== null){
+            $this->model = new $this->modelClass();
+        }
         if ($this->formView === null) {
             $this->formView = $this->controller->getViewPath() . '/_form.php';
         }
