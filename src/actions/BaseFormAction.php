@@ -28,19 +28,6 @@ class BaseFormAction extends BaseCrudAction
     public function init()
     {
         parent::init();
-        if ($this->model === null) {
-            if ($this->type === 'create') {
-                $this->model = new $this->modelClass();
-                $this->model->loadDefaultValues();
-            } elseif ($this->type === 'update') {
-                $queryParams = Cii::$app->request->getQueryParams();
-                $this->model = $this->findModel($queryParams);
-            }
-            // menambah scenario
-            $this->model->addScenario($this->scenario, $this->scenarioAttributes);
-            // set scenario
-            $this->model->scenario = $this->scenario;
-        }
     }
 
     public function run()

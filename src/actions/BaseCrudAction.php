@@ -8,6 +8,7 @@
 
 namespace codeup\actions;
 
+use Cii;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -98,7 +99,19 @@ class BaseCrudAction extends \codeup\base\Action
             $this->model = $this->controller->model;
         }
         if($this->model === null && $this->modelClass !== null){
-            $this->model = new $this->modelClass();
+            if ($this->type === 'create') {
+                $this->model = new $this->modelClass();
+                $this->model->loadDefaultValues();
+            } elseif ($this->type === 'update') {
+                $queryParams = Cii::$app->request->getQueryParams();
+                $this->model = $this->findModel($queryParams);
+            }else{
+                $this->model = new $this->modelClass();
+            }
+            // menambah scenario
+            $this->model->addScenario($this->scenario, $this->scenarioAttributes);
+            // set scenario
+            $this->model->scenario = $this->scenario;
         }
         if ($this->formView === null) {
             $this->formView = $this->controller->getViewPath() . '/_form.php';
