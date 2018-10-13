@@ -24,6 +24,7 @@ class ExportAction extends BaseCrudAction
     public $baseFormView = '@codeup/views/_pages/base-export';
 
     private function getExport($dynModel){
+        set_time_limit(0);
         if(empty($dynModel->columns)){
             return $this->controller->redirect($this->redirect);
         }
