@@ -14,6 +14,12 @@ use yii\behaviors\BlameableBehavior;
 class Migration extends \yii\db\Migration
 {
     protected $tableOptions = [];
+    public function init()
+    {
+        parent::init();
+        $this->mySQL_UTF8_unicode_InnoDB();
+    }
+
     /**
      * @return bool
      */
