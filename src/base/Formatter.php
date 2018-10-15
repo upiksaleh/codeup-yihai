@@ -25,4 +25,26 @@ class Formatter extends \yii\i18n\Formatter
             return Cii::t('codeup', 'Tidak Aktif');
         return $status;
     }
+    /**
+     * @param $status
+     * @return string
+     */
+    public function asYesno($status){
+        if($status == 1)
+            return Cii::t('codeup', 'Ya');
+        elseif($status == 0)
+            return Cii::t('codeup', 'Tidak');
+        return $status;
+    }
+    /**
+     * @param $sex
+     * @return string
+     */
+    public function asSex($sex){
+        if($sex == 'L')
+            return Cii::t('codeup', 'Pria');
+        elseif($sex == 'P')
+            return Cii::t('codeup', 'Wanita');
+        return $status;
+    }
 }

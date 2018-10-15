@@ -18,6 +18,9 @@ use codeup\theming\Html;
 use codeup\theming\BoxCard;
 use codeup\theming\ActiveForm;
 
+$this->params['breadcrumbs'][] = ['label'=> $this->title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Import';
+
 if(Cii::$app->request->getIsAjax()) {
     $cancelBtn = Html::button(Html::faicon('undo') . ' ' . Yii::t('codeup', 'Batal'),
         ['class' => $this->ctheme(['btn', 'btn-default']), 'data-dismiss' => 'modal']

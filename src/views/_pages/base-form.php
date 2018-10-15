@@ -17,12 +17,16 @@ use codeup\theming\BoxCard;
 use codeup\theming\ActiveForm;
 use yii\helpers\ArrayHelper;
 
-$this->beginContent($baseLayoutView, $_params);
-
 $typeForm = ($model->getIsNewRecord() ?
     Yii::t('codeup', 'Tambah') :
     Yii::t('codeup', 'Update')
 );
+
+$this->params['breadcrumbs'][] = ['label'=> $this->title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = $typeForm;
+
+$this->beginContent($baseLayoutView, $_params);
+
 $saveBtn = Html::submitButton(Html::faicon('save') . ' ' . $typeForm,
     ['class' => $this->ctheme(['btn', 'btn-success'])]
 );

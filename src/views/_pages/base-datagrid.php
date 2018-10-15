@@ -16,6 +16,9 @@ use yii\helpers\ArrayHelper;
 use codeup\grid\GridView;
 use codeup\theming\Modal;
 
+$this->params['breadcrumbs'][] = ['label'=> $this->title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Data';
+
 echo Html::beginTag('div', ['class' => '{ctheme}row']);
 echo Html::beginTag('div', ['class' => '{ctheme}col-xs-12']);
 

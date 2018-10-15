@@ -8,6 +8,8 @@
 /** @var $this \codeup\web\View */
 use codeup\theming\BoxCard;
 use codeup\theming\Html;
+$this->params['breadcrumbs'][] = ['label'=> $this->title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'View';
 echo Html::beginTag('div',['class'=>$this->ctheme('row')]);
 foreach($detailView as $i => $detail) {
     echo Html::beginTag('div', ['class' => $this->ctheme('col-md-6')]);
