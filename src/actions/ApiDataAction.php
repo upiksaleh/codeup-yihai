@@ -36,6 +36,9 @@ class ApiDataAction extends \codeup\base\Action
      */
     public $dataCallback = null;
 
+    /**
+     *
+     */
     public function init()
     {
         parent::init();

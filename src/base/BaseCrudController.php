@@ -9,12 +9,13 @@
 namespace codeup\base;
 
 
+use Cii;
 use yii\web\NotFoundHttpException;
 
 class BaseCrudController extends UserController
 {
     /**
-     * @var string nama class base model
+     * @var string|\codeup\base\ActiveRecord nama class base model
      */
     public $modelClass = null;
     /**
@@ -50,6 +51,27 @@ class BaseCrudController extends UserController
     {
     }
 
+    /**
+     * @param $action
+     * @return bool
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function haveAccessAction($action){
+        if(!in_array($action, array_keys($this->actions())))
+            return false;
+        if(isset($this->actions()[$action]['groupsCanAccess'])){
+            if(in_array(Cii::getUserIdentity()->getGroup(), $this->actions()[$action]['groupsCanAccess']))
+                return true;
+        }else{
+            if(in_array(Cii::getUserIdentity()->getGroup(), $this->groupsCanAccess))
+                return true;
+        }
+    }
+    /**
+     * @param $params
+     * @return ActiveRecord|null|string
+     * @throws NotFoundHttpException
+     */
     protected function findModel($params)
     {
         $model = $this->modelClass;

@@ -40,6 +40,10 @@ trait BaseModelTrait
         return array_merge($this->_codeup_scenarios, parent::scenarios());
     }
 
+    /**
+     * @param $name
+     * @param array $attributes
+     */
     public function addScenario($name, $attributes = [])
     {
         if(empty($attributes)) {
@@ -61,6 +65,7 @@ trait BaseModelTrait
 
     /**
      * @param $dataProvider \yii\data\ActiveDataProvider
+     * @throws \yii\base\InvalidConfigException
      */
     public function searchDataProvider(&$dataProvider){
         if($this->_filterModel === null)
@@ -74,9 +79,9 @@ trait BaseModelTrait
     }
 
     /**
-     * @param $query \yii\db\ActiveQuery
+     * @param $query \yii\db\QueryInterface|\yii\db\ActiveQuery
      * @param $filterModel FilterModel
-     * @return \yii\db\ActiveQuery
+     * @return void
      */
     public function onSearch(&$query, $filterModel){
 

@@ -9,11 +9,9 @@
 namespace codeup\actions;
 
 use Cii;
-use yii\db\IntegrityException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\imagine\Image;
-use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
 
 /**

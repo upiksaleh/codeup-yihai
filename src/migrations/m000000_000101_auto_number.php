@@ -11,7 +11,7 @@
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class m140527_084418_auto_number extends \codeup\base\Migration
+class m000000_000101_auto_number extends \codeup\base\Migration
 {
 
     /**

@@ -9,11 +9,11 @@
 namespace codeup\base;
 
 use Cii;
-use codeup\filters\AccessControl;
 
 /**
  * Class Action
  * @package codeup\base
+ * @property \codeup\base\Controller
  */
 class Action extends \yii\base\Action
 {

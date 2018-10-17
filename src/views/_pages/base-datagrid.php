@@ -34,13 +34,27 @@ if ($useModal) {
     $btnExportOptions['data-target'] = '#codeup-basemodal';
 }
 
-$btnInsert = Html::a(Html::faicon('plus') . ' ' . Cii::t('codeup', 'Tambah'), ['create'], $btnInsertOptions);
+$btnInsert = "";
 $btnImport = "";
 $btnExport = "";
-if(in_array('import', array_keys($this->context->actions())))
-    $btnImport = Html::a(Html::faicon('upload') . ' ' . Cii::t('codeup', 'Import'), ['import'], $btnImportOptions);
-if(in_array('export', array_keys($this->context->actions())))
-    $btnExport = Html::a(Html::faicon('download') . ' ' . Cii::t('codeup', 'Export'), ['export'], $btnExportOptions);
+try {
+    if ($this->context instanceof \codeup\base\BaseCrudController && $this->context->haveAccessAction('create')) {
+        $btnInsert = Html::a(Html::faicon('plus') . ' ' . Cii::t('codeup', 'Tambah'), ['create'], $btnInsertOptions);
+    }
+} catch (\yii\base\InvalidConfigException $e) {
+}
+try {
+    if ($this->context instanceof \codeup\base\BaseCrudController && $this->context->haveAccessAction('import')) {
+        $btnImport = Html::a(Html::faicon('upload') . ' ' . Cii::t('codeup', 'Import'), ['import'], $btnImportOptions);
+    }
+} catch (\yii\base\InvalidConfigException $e) {
+}
+try {
+    if ($this->context instanceof \codeup\base\BaseCrudController && $this->context->haveAccessAction('export')) {
+        $btnExport = Html::a(Html::faicon('download') . ' ' . Cii::t('codeup', 'Export'), ['export'], $btnExportOptions);
+    }
+} catch (\yii\base\InvalidConfigException $e) {
+}
 $boxTitle = '{insert}';
 if (isset($boxCard['title'])) {
     $boxTitle = $boxCard['title'];

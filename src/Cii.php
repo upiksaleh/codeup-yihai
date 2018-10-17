@@ -16,7 +16,8 @@ class Cii extends \yii\BaseYii
 {
 
     /**
-     * @return null|\codeup\Models\UserIdent
+     * @return \codeup\Models\UserIdent|null|\yii\web\IdentityInterface
+     * @throws InvalidConfigException
      */
     public static function getUserIdentity(){
         if(static::$app->user->identity instanceof \codeup\Models\UserIdent){
@@ -26,9 +27,21 @@ class Cii extends \yii\BaseYii
 
     }
 
-    public static function getGroupAndUserId(){
+    /**
+     * @param array $group
+     * @return bool
+     * @throws InvalidConfigException
+     */
+    public static function userHasGroup($group){
+        return in_array(static::getUserIdentity()->getGroup(), $group);
+    }
 
-        return static::getUserIdentity()->getGroup() .'|'.static::getUserIdentity()->getId();
+    public static function getGroupAndUserId(){
+        try {
+            return static::getUserIdentity()->getGroup() . '|' . static::getUserIdentity()->getId();
+        } catch (InvalidConfigException $e) {
+            return null;
+        }
     }
     /**
      * @param string $key

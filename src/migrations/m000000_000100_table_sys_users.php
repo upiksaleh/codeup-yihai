@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Class m180908_064554_table_sys_users
+ * Class m000000_000100_table_sys_users
  * @author Upik Saleh <upxsal@gmail.com>
  */
-class m180908_064554_table_sys_users extends \codeup\base\Migration
+class m000000_000100_table_sys_users extends \codeup\base\Migration
 {
     protected $tableSysUsers = '{{%sys_users}}';
 
