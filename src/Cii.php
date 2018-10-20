@@ -33,10 +33,14 @@ class Cii extends \yii\BaseYii
      * @throws InvalidConfigException
      */
     public static function userHasGroup($group){
+        if(static::$app->user->getIsGuest())
+            return false;
         return in_array(static::getUserIdentity()->getGroup(), $group);
     }
 
     public static function getGroupAndUserId(){
+        if(static::$app->user->getIsGuest())
+            return null;
         try {
             return static::getUserIdentity()->getGroup() . '|' . static::getUserIdentity()->getId();
         } catch (InvalidConfigException $e) {
