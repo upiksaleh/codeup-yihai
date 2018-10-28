@@ -40,7 +40,6 @@ if(Cii::$app->request->getIsAjax()) {
         ['class' => $this->ctheme(['btn', 'btn-default'])]
     );
 }
-
 $form = ActiveForm::begin(ArrayHelper::merge([
     'id' => 'form-'.str_replace('/','-',$this->context->getUniqueId()).'-'.$this->context->action->id,
     'layout' => $formLayout,
@@ -55,9 +54,9 @@ $form = ActiveForm::begin(ArrayHelper::merge([
         ],
     ],
 ], $formConfig));
-if(Cii::$app->request->getIsAjax()){
+if(Cii::$app->request->getIsAjax() || Cii::$app->request->getIsPjax() || $this->context->ajaxController){
     echo $this->renderFile($formView, ['model' => $model, 'form' => $form]);
-    echo $saveBtn . ' ' . $cancelBtn;
+    echo $saveBtn . ' ' . ($this->context->ajaxController ? '' : $cancelBtn);
 }else {
     BoxCard::begin([
         'type' => 'primary',

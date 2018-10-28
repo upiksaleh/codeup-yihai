@@ -45,6 +45,18 @@ class Formatter extends \yii\i18n\Formatter
             return Cii::t('codeup', 'Pria');
         elseif($sex == 'P')
             return Cii::t('codeup', 'Wanita');
-        return $status;
+        return $sex;
+    }
+
+    public function asAuthorGroup($author){
+        $author = explode('|', $author);
+        if(isset(Cii::$app->user->groups[$author[0]])){
+            /** @var \codeup\models\UserIdent $identClass */
+            $identClass = Cii::$app->user->groups[$author[0]];
+            $ident = $identClass::findByUsername($author[1]);
+            if($ident)
+                return $ident->getFullname();
+        }
+        return null;
     }
 }

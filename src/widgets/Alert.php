@@ -64,6 +64,8 @@ class Alert extends \codeup\theming\Widget
             $session = Yii::$app->session;
             $items = $session->getAllFlashes();
             //print_r($this->options['class'])
+        }else{
+            $items = $this->items;
         }
         $appendClass = 'codeup-top-alert';
 
@@ -82,7 +84,8 @@ class Alert extends \codeup\theming\Widget
                     ]),
                 ]);
             }
-            $session->removeFlash($type);
+            if(isset($session))
+                $session->removeFlash($type);
         }
 
         // register auto hide alert js

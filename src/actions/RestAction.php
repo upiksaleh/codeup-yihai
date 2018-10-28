@@ -9,6 +9,7 @@
 namespace codeup\actions;
 
 use Cii;
+use codeup\base\Action;
 use codeup\base\BaseRestController;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
@@ -18,7 +19,7 @@ use yii\rest\ActiveController;
  * Class RestAction
  * @package codeup\actions
  */
-class RestAction extends \yii\base\Action
+class RestAction extends Action
 {
     /** @var \codeup\base\ActiveRecord */
     public $modelClass;

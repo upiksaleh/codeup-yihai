@@ -36,6 +36,7 @@ class DataGridAction extends \codeup\base\Action
     /** @var string */
     public $boxButton = '{insert}';
 
+    public $showFiltering = true;
     public $useModal = true;
     private $_settings = [];
 
@@ -73,9 +74,12 @@ class DataGridAction extends \codeup\base\Action
             'filtering' => $this->filtering,
             'dataProvider' => $this->dataProvider,
             'gridView' => $this->gridView,
-            'useModal' => $this->useModal
+            'useModal' => $this->useModal,
+            'showFiltering' => $this->showFiltering
         ], $this->_settings);
-
+        if(Cii::$app->request->isAjax || Cii::$app->request->isPjax || $this->controller->ajaxController){
+            return $this->controller->renderAjax($this->baseView, $params);
+        }
         return $this->controller->render($this->baseView, $params);
     }
 

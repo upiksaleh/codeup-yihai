@@ -84,6 +84,7 @@ class BaseCrudAction extends \codeup\base\Action
      */
     public $params = [];
     public $formLayout = 'horizontal';
+    public $ajaxAction = false;
     public function init()
     {
         //set baseCrudAction in controller

@@ -36,7 +36,10 @@ class BaseFormAction extends BaseCrudAction
             $this->handleUpload();
             if ($this->model->save(false)) {
                 Cii::$app->session->setFlash('success', Cii::t('app', $this->messageSuccess));
-                return $this->controller->redirect($this->redirect);
+                if($this->ajaxAction)
+                    return '';
+                else
+                    return $this->controller->redirect($this->redirect);
             }
         }
         if ($this->enableAlertDanger) {
@@ -52,11 +55,12 @@ class BaseFormAction extends BaseCrudAction
             'baseLayoutView' => $this->baseLayoutView,
             'formLayout' => $this->formLayout,
             'formConfig' => $this->formConfig,
+            'ajaxAction' => $this->ajaxAction
         ];
 
         $params = ArrayHelper::merge($params, $this->params);
         $params['_params'] = $params;
-        if (Cii::$app->request->isAjax) {
+        if(Cii::$app->request->isAjax || Cii::$app->request->isPjax || $this->controller->ajaxController){
             return $this->controller->renderAjax($this->baseFormView, $params);
         } else {
             return $this->controller->render($this->baseFormView, $params);

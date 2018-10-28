@@ -29,6 +29,7 @@ class BaseCrudController extends UserController
 
     public $groupsCanAccess = ['su'];
 
+    public $ajaxController = false;
     public function init()
     {
         parent::init();

@@ -9,6 +9,9 @@
 namespace codeup\filters;
 
 
+use codeup\base\Action;
+use yii\web\Request;
+
 class AccessRule extends \yii\filters\AccessRule
 {
     public $groups   = [];
@@ -19,6 +22,7 @@ class AccessRule extends \yii\filters\AccessRule
      * @param \yii\web\User|false $user the user object or `false` in case of detached User component
      * @param Request $request
      * @return bool|null `true` if the user is allowed, `false` if the user is denied, `null` if the rule does not apply to the user
+     * @throws \yii\base\InvalidConfigException
      */
     public function allows($action, $user, $request)
     {
@@ -39,8 +43,12 @@ class AccessRule extends \yii\filters\AccessRule
     /**
      * untuk menggunakan match group, user identityClass harus menggunakan class \codeup\models\UserIdent
      * @param \yii\web\User $user
+     * @return bool
      */
     public function matchGroup($user){
+        if($this->groups == '*'){
+            return true;
+        }
         return empty($this->groups) || in_array($user->identity->getGroup(), $this->groups, true);
     }
 }
