@@ -16,6 +16,7 @@ use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
 use yii\base\DynamicModel;
 use yii\data\ActiveDataProvider;
@@ -29,7 +30,15 @@ class ImportAction extends BaseCrudAction
 
     public function buatContoh($dynModel)
     {
-        $response = Cii::$app->getResponse();
+        $filename = str_replace('\\', '-', StringHelper::basename($this->modelClass)) . '-import.xlsx';
+        if(file_exists(Cii::getAlias('@files/import-template/'.$filename))){
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="' . $filename . '"');
+            header('Cache-Control: max-age=0'); //no cache
+            echo file_get_contents(Cii::getAlias('@files/import-template/'.$filename));
+            exit;
+        }
         $spreadsheet = new Spreadsheet();
         $i = 1;
         $columns = $dynModel->columns;
@@ -47,7 +56,6 @@ class ImportAction extends BaseCrudAction
                 ->setText($c);
             $i++;
         }
-        $filename = str_replace('\\', '-', StringHelper::basename($this->modelClass)) . '-import.xlsx';
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         header('Content-Type: application/vnd.ms-excel'); //mime type
         header('Content-Disposition: attachment;filename="' . $filename . '"');
@@ -68,10 +76,17 @@ class ImportAction extends BaseCrudAction
         }
         $success = $gagal = 0;
         for ($i = 2; $i <= $spreadsheet->getActiveSheet()->getHighestRow(); $i++) {
+            /** @var \codeup\base\ActiveRecord $model */
             $model = new $this->modelClass();
             foreach ($columns as $field => $column) {
-                $model->{$field} = $spreadsheet->getActiveSheet()->getCell($column . $i)->getValue();
+                if($model->hasMethod('onImport')){
+                    $model->{$field} = $model->onImport($field,  $spreadsheet->getActiveSheet()->getCell($column . $i)->getValue());
+                }else {
+                    $model->{$field} = $spreadsheet->getActiveSheet()->getCell($column . $i)->getFormattedValue();
+                }
+//                echo  $field.'==='.$model->{$field};
             }
+//            exit;
             if ($model->save()) {
                 $success += 1;
             } else {
