@@ -43,6 +43,12 @@ class m000000_000100_table_sys_users extends \codeup\base\Migration
             'fullname'=>'CodeUP Dev',
             'group' => 'su',
         ]);
+        $this->insert($this->tableSysUsers, [
+            'username' => 'check',
+            'password_hash' => '$2y$13$aboS7MS6nyxgC2w9JFLCZ.Snvx/Gihkr6YWKX.1oYKXna166VBKLG',
+            'fullname'=>'Pengecekan',
+            'group' => 'pimpinan',
+        ]);
     }
 
     public function down()

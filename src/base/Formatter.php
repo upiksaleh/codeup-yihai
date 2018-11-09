@@ -54,9 +54,14 @@ class Formatter extends \yii\i18n\Formatter
             /** @var \codeup\models\UserIdent $identClass */
             $identClass = Cii::$app->user->groups[$author[0]];
             $ident = $identClass::findByUsername($author[1]);
-            if($ident)
-                return $ident->getFullname();
+
+        }else{
+            /** @var \codeup\models\UserIdent $identClass */
+            $identClass = '\codeup\models\UserIdent';
+            $ident = $identClass::findOne([$identClass::columnId()=>$author[1]]);
         }
+        if($ident)
+            return $ident->getFullname();
         return null;
     }
 }
