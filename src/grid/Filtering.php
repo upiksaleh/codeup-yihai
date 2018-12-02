@@ -57,15 +57,15 @@ class Filtering extends BaseObject
         if (!$this->model) {
             $this->model = new $this->modelClass();
         }
-        $this->tableSchema = $this->model::getTableSchema();
+        $this->tableSchema = $this->model->getTableSchema();
         $this->initAttributes();
         if (!$this->id) {
-            $this->id = $this->model::getTableSchema()->name;
+            $this->id = $this->model->getTableSchema()->name;
         }
         if (!$this->formModelName) {
             $this->formModelName = 'FilteringModel-' . $this->id;
         }
-        $this->_query = $this->model::find();
+        $this->_query = $this->model->find();
         $this->createFormModel();
         $this->initDataProvider();
 
@@ -141,7 +141,7 @@ class Filtering extends BaseObject
                     $value = NULL;
                 }
                 if(!$condition) {
-                    $column = $this->modelClass::tableName().'.'.$column;
+                    $column = $this->modelClass->tableName().'.'.$column;
                     $condition = [$op, $column, $value];
                 }
                 if (!isset($this->formModel->andor[$i])) {
